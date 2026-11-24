@@ -13,7 +13,7 @@ Central package management is authoritative. A direct 10.0.13 entry for the affe
 The affected package entry inherited AspNetVersion 8.0.2. The Web project referenced the package centrally, making 8.0.2 resolve for the Web host.
 
 ## Planned correction
-Replace only the affected central package entry with 10.0.13, retain the versionless project reference, review existing framework call sites for API incompatibility, and document pipeline validation requirements.
+Replace only the affected central package entry with 10.0.13, retain the versionless project reference, remove legacy framework middleware extensions that fail to compile with 10.0.13, and document pipeline validation requirements.
 
 ## Result
-Microsoft.AspNetCore.Components.WebAssembly.Server is pinned explicitly at 10.0.13. No source call-site change is needed, and no unrelated package version changed.
+Microsoft.AspNetCore.Components.WebAssembly.Server is pinned explicitly at 10.0.13. The 10.0.13 build incompatibility was corrected by removing `UseWebAssemblyDebugging` and `UseBlazorFrameworkFiles`; static files and fallback routing remain enabled.
