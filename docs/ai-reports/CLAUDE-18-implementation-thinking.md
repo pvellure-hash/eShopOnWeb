@@ -15,6 +15,7 @@ The changes are limited to one dependency declaration file and the required repo
 | `docs/ai-reports/CLAUDE-18-solution-thinking.md` | Added the solution reasoning report. |
 | `docs/ai-reports/CLAUDE-18-implementation-thinking.md` | Added the implementation reasoning report. |
 | `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs` | Added an entry-point integration behavior test for the `/health` endpoint. |
+| `tests/FunctionalTests/Web/WebTestFixture.cs` | Replaced environment-dependent health registrations with a deterministic Healthy test registration so the entry-point test does not depend on unavailable external/local HTTP services. |
 
 ## Reviewed call sites
 `src/Web/Program.cs` uses Azure.Identity types `ChainedTokenCredential`, `AzureDeveloperCliCredential`, and `DefaultAzureCredential`; their construction API remains unchanged in this upgrade, so no source change is needed. It also uses server-side Blazor registration and static fallback setup with no Blazor server-package API change from 10.0.13 to 10.0.14.

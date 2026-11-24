@@ -10,7 +10,7 @@ Central package management declared both vulnerable versions in `Directory.Packa
 Updated only the two central `PackageVersion` entries: Azure.Identity from 1.10.4 to 1.11.4 and Microsoft.AspNetCore.Components.WebAssembly.Server from 10.0.13 to 10.0.14. The versionless package references in `src/Web/Web.csproj` were already correct and required no edit.
 
 ## Self-correction
-After the first validation pass, an integration-behavior test was missing for `src/Web/Program.cs`. Updated `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs` with a WebApplicationFactory test that requests `/health` through the real application entry point and verifies the health JSON response. This addresses the validator's call-site test requirement without changing test behavior or asserting package versions.
+After the first validation pass, an integration-behavior test was missing for `src/Web/Program.cs`, and the first test pass could reach external/local HTTP health dependencies and return 503. Added `ReturnsHealthEndpointThroughProgramEntryPoint` in `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs` and updated `tests/FunctionalTests/Web/WebTestFixture.cs` to replace production health registrations with one deterministic healthy test registration. The test now exercises `/health` through the real application entry point and verifies the JSON response without weakening the Healthy response assertion or asserting package versions.
 
 ## Library upgrade review
 Libraries: Microsoft.AspNetCore.Components.WebAssembly.Server 10.0.13 -> 10.0.14; Azure.Identity 1.10.4 -> 1.11.4
@@ -35,6 +35,7 @@ Needs a person: run `dotnet restore --force-evaluate`, then the pipeline or a pe
 - `docs/ai-reports/CLAUDE-18-solution-thinking.md`
 - `docs/ai-reports/CLAUDE-18-implementation-thinking.md`
 - `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs`
+- `tests/FunctionalTests/Web/WebTestFixture.cs`
 
 ## Remaining work
-The pipeline must restore, build, run configured tests, and rerun the vulnerability scan. No source test or lock-file edit was possible or necessary in this patch/minor dependency-only fix.
+The pipeline must restore, build, run configured tests, and rerun the vulnerability scan. No lock-file edit was necessary for this patch/minor dependency-only fix.

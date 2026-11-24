@@ -7,6 +7,7 @@ Upgrade Microsoft.AspNetCore.Components.WebAssembly.Server from 10.0.13 to 10.0.
 Reviewed `src/Web/Program.cs` for Azure credential construction and existing Blazor startup calls. Both upgrades are API-compatible with the reviewed call sites, so no source change is needed.
 
 Added `ReturnsHealthEndpointThroughProgramEntryPoint` to `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs`. It uses `WebApplicationFactory` to verify the configured `/health` entry-point response.
+Updated `tests/FunctionalTests/Web/WebTestFixture.cs` to replace environment-dependent production health registrations with a deterministic healthy registration in the test host, preventing `/health` from returning 503 because external/local HTTP dependencies are unavailable in the functional-test process.
 
 ## Files changed
-`Directory.Packages.props`, `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs`, and the required CLAUDE-18 report files under `docs/ai-reports/`.
+`Directory.Packages.props`, `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs`, `tests/FunctionalTests/Web/WebTestFixture.cs`, and the required CLAUDE-18 report files under `docs/ai-reports/`.
