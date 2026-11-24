@@ -9,6 +9,9 @@ using Microsoft.eShopWeb.Web.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.eShopWeb.FunctionalTests.Web;
 
@@ -49,8 +52,27 @@ public class TestApplication : WebApplicationFactory<IBasketViewModelService>
                 .UseApplicationServiceProvider(sp)
                 .Options;
             });
+            services.Configure<HealthCheckServiceOptions>(options =>
+            {
+                options.Registrations.Clear();
+                options.Registrations.Add(new HealthCheckRegistration(
+                    "test_health_check",
+                    _ => new HealthyTestHealthCheck(),
+                    HealthStatus.Unhealthy,
+                    Array.Empty<string>()));
+            });
         });
 
         return base.CreateHost(builder);
+    }
+
+    private sealed class HealthyTestHealthCheck : IHealthCheck
+    {
+        public Task<HealthCheckResult> CheckHealthAsync(
+            HealthCheckContext context,
+            CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(HealthCheckResult.Healthy());
+        }
     }
 }
