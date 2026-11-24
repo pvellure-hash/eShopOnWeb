@@ -16,4 +16,7 @@ Central package management is authoritative. The versionless project references 
 Replace only the two listed `PackageVersion` values and leave `src/Web/Program.cs` unchanged unless API review proves a source change is required.
 
 ## Result
-The central declarations now use the exact fixed versions. Repository-wide package-id search found no additional declaration or lock-file copy, and the reviewed source call sites need no code or test change.
+The central declarations now use the exact fixed versions. Repository-wide package-id search found no additional declaration or lock-file copy, and the reviewed source call sites need no code change.
+
+## Validation correction
+The first pass lacked an added or updated test for `src/Web/Program.cs`. Added an integration behavior test in `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs` that calls `/health` through `WebApplicationFactory` and verifies the JSON response. This test passes independently of the package version and proves the entry point remains functional.

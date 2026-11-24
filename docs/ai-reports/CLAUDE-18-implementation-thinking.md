@@ -14,6 +14,7 @@ The changes are limited to one dependency declaration file and the required repo
 | `docs/ai-reports/CLAUDE-18-jira.md` | Added the Jira comment with `<PR link>` unchanged. |
 | `docs/ai-reports/CLAUDE-18-solution-thinking.md` | Added the solution reasoning report. |
 | `docs/ai-reports/CLAUDE-18-implementation-thinking.md` | Added the implementation reasoning report. |
+| `tests/FunctionalTests/Web/Pages/HomePageOnGet.cs` | Added an entry-point integration behavior test for the `/health` endpoint. |
 
 ## Reviewed call sites
 `src/Web/Program.cs` uses Azure.Identity types `ChainedTokenCredential`, `AzureDeveloperCliCredential`, and `DefaultAzureCredential`; their construction API remains unchanged in this upgrade, so no source change is needed. It also uses server-side Blazor registration and static fallback setup with no Blazor server-package API change from 10.0.13 to 10.0.14.
@@ -21,4 +22,4 @@ The changes are limited to one dependency declaration file and the required repo
 `src/Web/Web.csproj` contains versionless `PackageReference` entries for both packages; central management resolves each to the fixed version.
 
 ## Verification and outstanding items
-No unit or integration test was added because no behavior or source call changed. Local .NET commands are prohibited by repository instructions. A person must run `dotnet restore --force-evaluate`; the pipeline must restore, build, run tests, and run `dotnet list eShopOnWeb.sln package --vulnerable --include-transitive`.
+Local .NET commands are prohibited by repository instructions. A person must run `dotnet restore --force-evaluate`; the pipeline must restore, build, run tests, and run `dotnet list eShopOnWeb.sln package --vulnerable --include-transitive`.
