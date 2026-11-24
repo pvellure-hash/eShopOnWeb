@@ -172,7 +172,6 @@ if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docke
     app.UseDeveloperExceptionPage();
     app.UseShowAllServicesMiddleware();
     app.UseMigrationsEndPoint();
-    app.UseWebAssemblyDebugging();
 }
 else
 {
@@ -182,7 +181,6 @@ else
 }
 
 app.UseHttpsRedirection();
-app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 app.UseRouting();
 
