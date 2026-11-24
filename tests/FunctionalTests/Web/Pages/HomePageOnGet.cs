@@ -24,4 +24,17 @@ public class HomePageOnGet : IClassFixture<TestApplication>
         // Assert
         Assert.Contains(".NET Bot Black Sweatshirt", stringResponse);
     }
+
+    [Fact]
+    public async Task ReturnsHealthEndpointThroughProgramEntryPoint()
+    {
+        // Arrange & Act
+        var response = await Client.GetAsync("/health");
+        var stringResponse = await response.Content.ReadAsStringAsync();
+
+        // Assert
+        response.EnsureSuccessStatusCode();
+        Assert.Contains("\"status\"", stringResponse);
+        Assert.Contains("\"Healthy\"", stringResponse);
+    }
 }
