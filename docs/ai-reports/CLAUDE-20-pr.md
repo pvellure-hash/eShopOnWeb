@@ -1,10 +1,10 @@
 # Upgrade jquery-validation-unobtrusive to 4.0.0
 
 ## Summary
-Updated the production CDN references in the Identity and shared validation script partials from 3.2.9 and 3.2.6 to 4.0.0. The local LibMan declaration already selected 4.0.0, and no other library was changed.
+Updated both production validation script partials to use jquery-validation-unobtrusive 4.0.0 and corrected their SHA-384 integrity values to match the new CDN asset. No other library or local fallback was changed.
 
 ## Validation
-Searched the repository for jquery-validation-unobtrusive and its script filename; only the two named CDN references contained the older versions. Both partials only load validation scripts and have no direct API calls. No test was added for this version-only URL change, and local .NET test execution is prohibited by repository instructions. The release notes could not be retrieved here. Verify the existing SRI hashes against the 4.0.0 asset and run pipeline/browser validation before deployment.
+The repository-wide search found no other outdated CDN version; LibMan already selects 4.0.0. Both script partials only load validation scripts and have no direct calls to the unobtrusive-validation API, so no API migration was needed. No unit test was added for this asset metadata correction, and repository instructions prohibit local `dotnet` test runs. Pipeline unit tests and browser integrity validation remain to be run.
 
 ## Files changed
-The two validation partials and the required CLAUDE-20 reports under `docs/ai-reports/`.
+Both validation partials and the required CLAUDE-20 reports under `docs/ai-reports/`.

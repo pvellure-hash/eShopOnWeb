@@ -1,28 +1,28 @@
 # CLAUDE-20 Implementation Thinking
 
 ## Implementation approach
-The requested change is limited to synchronizing the two production CDN URL versions with the existing 4.0.0 LibMan selection.
+The correction is limited to the integrity metadata for the two 4.0.0 production CDN assets and the required reports.
 
 ## Changes by file
-The force-app changes are limited to the named script references:
+The force-app changes are limited to the two production script references:
 
 | File | Change |
 | --- | --- |
-| `src/Web/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml` | Changed the production CDN URL version from 3.2.9 to 4.0.0. |
-| `src/Web/Views/Shared/_ValidationScriptsPartial.cshtml` | Changed the production CDN URL version from 3.2.6 to 4.0.0. |
+| `src/Web/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml` | Replaced the stale integrity hash with the SHA-384 value for jquery-validation-unobtrusive 4.0.0. |
+| `src/Web/Views/Shared/_ValidationScriptsPartial.cshtml` | Replaced the stale integrity hash with the SHA-384 value for jquery-validation-unobtrusive 4.0.0. |
 
-The required reports are also added:
+The required reports were updated:
 
 | File | Change |
 | --- | --- |
-| `docs/ai-reports/CLAUDE-20.md` | Added the solution report and library upgrade review. |
-| `docs/ai-reports/CLAUDE-20-pr.md` | Added the pull request description. |
-| `docs/ai-reports/CLAUDE-20-jira.md` | Added the Jira comment with `<PR link>` unchanged. |
-| `docs/ai-reports/CLAUDE-20-solution-thinking.md` | Added the solution reasoning report. |
-| `docs/ai-reports/CLAUDE-20-implementation-thinking.md` | Added the implementation reasoning report. |
+| `docs/ai-reports/CLAUDE-20.md` | Recorded the root cause, correction, and library review. |
+| `docs/ai-reports/CLAUDE-20-pr.md` | Updated the pull request description and validation status. |
+| `docs/ai-reports/CLAUDE-20-jira.md` | Updated the ticket comment and retained `<PR link>`. |
+| `docs/ai-reports/CLAUDE-20-solution-thinking.md` | Recorded the revised root cause and correction. |
+| `docs/ai-reports/CLAUDE-20-implementation-thinking.md` | Recorded the changed files and verification status. |
 
 ## Reviewed call sites
-Both script partials load jQuery validation and unobtrusive validation and have no direct calls to the unobtrusive API. Development/Docker paths and local fallbacks remain unchanged. The repository search found the LibMan declaration already on 4.0.0 and no other old CDN version copy.
+Both script partials use the 4.0.0 CDN path and matching integrity value; neither calls unobtrusive-validation APIs directly. Their Development/Docker paths and local fallbacks remain unchanged. The repository search found LibMan already on 4.0.0 and no other outdated CDN references.
 
 ## Verification and outstanding items
-No unit tests were added because only asset URL versions changed and there is no application logic change; local .NET tests were not run because repository instructions prohibit them. The 4.0.0 release notes and replacement SRI hashes could not be verified in this environment. A person should verify those hashes and run pipeline/browser validation before deployment.
+No unit tests were added because only external asset metadata changed and there is no application logic to exercise. Local .NET tests were not run because repository instructions prohibit `dotnet` commands. Pipeline browser integrity validation and the configured unit suite remain outstanding.
